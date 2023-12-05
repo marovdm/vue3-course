@@ -1,4 +1,6 @@
-export default [
+import { isLoggedIn } from "../middlewares/isLoggedIn";
+
+export const routes = [
   {
     path: "",
     name: "home",
@@ -15,13 +17,24 @@ export default [
     path: "/cart",
     name: "cart",
     component: () => import("@/views/CartView.vue"),
-    meta: { layout: "DefaultLayout" },
+    meta: {
+      layout: "DefaultLayout",
+    },
+  },
+  {
+    path: "/success",
+    name: "success",
+    component: () => import("@/views/SuccessView.vue"),
+    meta: { layout: "SimpleLayout" },
   },
   {
     path: "/user",
     name: "user",
     component: () => import("@/views/UserView.vue"),
-    meta: { layout: "DefaultLayout" },
+    meta: {
+      layout: "DefaultLayout",
+      middlewares: [isLoggedIn],
+    },
     children: [
       {
         path: "orders",
